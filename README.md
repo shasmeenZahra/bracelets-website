@@ -74,7 +74,7 @@ If you want to say hi or ask questions:
 
 * Instagram: [@shasmeen\_official](https://instagram.com/shasmeen_official) 📸
 * Email: [shasmeenasim@gmail.com](mailto:shasmeenasim@gmail.com) 📧
-* LinkedIn: [shasmeenZahra](https://linkedin.com/in/shasmeenZahra) 💼
+* LinkedIn: [shasmeen-zahra](https://linkedin.com/in/shasmeenZahra) 💼
 
 ---
 
