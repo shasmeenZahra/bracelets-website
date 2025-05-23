@@ -90,6 +90,7 @@ st.markdown("""
         background-color: #fff0f3;
         padding: 20px;
         border-radius: 12px;
+        color: #5a3e3e; /* 💡 Fix: Sidebar text color made dark */
     }
     .css-1d391kg {
         background-color: #f9f6f7;
@@ -117,8 +118,6 @@ def footer():
 header()
 
 # ----------- NAVIGATION -----------
-# Sidebar Navigation & Footer Info
-
 if st.session_state.logged_in:
     pages = ["Home", "Products", "Cart", "Checkout", "Logout"]
 else:
@@ -126,23 +125,22 @@ else:
 
 choice = st.sidebar.selectbox("Navigate", pages)
 
-# Sidebar ke niche About Me aur IDs ka chhota note
-st.sidebar.markdown("---")  # ek separator line
+# 💡 FIXED SIDEBAR FOOTER TEXT COLOR
+st.sidebar.markdown("---")
 st.sidebar.markdown(
     """
-    <div style="font-size:14px; color:#a86d7d; padding: 20px;">
+    <div style="font-size:14px; color:#5a3e3e; padding: 20px;">
         <strong>About Me:</strong><br>
         Hey! I'm Shasmeen 💗<br>
         Creator of this bracelet shop.<br><br>
         <strong>Contact IDs:</strong><br>
         Instagram: @shasmeen_official<br>
         Email: shasmeenasim@gmail.com<br>
-        linkdin: shasmeenZahra
+        LinkedIn: shasmeenZahra
     </div>
     """,
     unsafe_allow_html=True
 )
-
 
 # ----------- ABOUT ME SECTION -----------
 def about_me():
@@ -167,66 +165,23 @@ Stay happy, stay shiny — just like our bracelets! ✨
 
 # ----------- PAGES -----------
 
-# HOME
 if choice == "Home":
     st.header("🏠 Welcome to Shasmeen's Boutique")
     about_me()
     st.write("Your one-stop shop for beautiful bracelets 💍✨")
 
-# PRODUCTS
 elif choice == "Products" and st.session_state.logged_in:
     st.header("🛍️ All Bracelets")
     enhanced_products = [
-        {
-            "id": 1,
-            "name": "Silver Chain",
-            "price": 25.0,
-            "images": ["silver_chain.jpg", "silver_chain1.jpg", "silver_chain2.jpg"]
-        },
-        {
-            "id": 2,
-            "name": "Gold Charm",
-            "price": 40.0,
-            "images": ["gold_charm.jpg", "gold_charm1.jpg", "gold_charm2.jpg"]
-        },
-        {
-            "id": 3,
-            "name": "Beaded Set",
-            "price": 18.0,
-            "images": ["beaded_set.jpg", "beaded_set1.jpg", "beaded_set2.jpg"]
-        },
-        {
-            "id": 4,
-            "name": "Pearl Bracelet",
-            "price": 32.0,
-            "images": ["pearl_bracelet.jpg", "pearl_bracelet1.jpg", "pearl_bracelet2.jpg"]
-        },
-        {
-            "id": 5,
-            "name": "Leather Wrap",
-            "price": 22.0,
-            "images": ["leather_wrap.jpg", "leather_wrap1.jpg", "leather_wrap2.jpg"]
-        },
-        {
-            "id": 6,
-            "name": "Diamond Tennis",
-            "price": 120.0,
-            "images": ["diamond_tennis.jpg", "diamond_tennis1.jpg", "diamond_tennis2.jpg"]
-        },
-        {
-            "id": 7,
-            "name": "Friendship Bracelet",
-            "price": 15.0,
-            "images": ["friendship.jpg", "friendship1.jpg", "friendship2.jpg"]
-        },
-        {
-            "id": 8,
-            "name": "Hero Bracelet",
-            "price": 38.0,
-            "images": ["hero_bracelet.jpg", "hero_bracelet1.jpg", "hero_bracelet2.jpg"]
-        },
+        {"id": 1, "name": "Silver Chain", "price": 25.0, "images": ["silver_chain.jpg", "silver_chain1.jpg", "silver_chain2.jpg"]},
+        {"id": 2, "name": "Gold Charm", "price": 40.0, "images": ["gold_charm.jpg", "gold_charm1.jpg", "gold_charm2.jpg"]},
+        {"id": 3, "name": "Beaded Set", "price": 18.0, "images": ["beaded_set.jpg", "beaded_set1.jpg", "beaded_set2.jpg"]},
+        {"id": 4, "name": "Pearl Bracelet", "price": 32.0, "images": ["pearl_bracelet.jpg", "pearl_bracelet1.jpg", "pearl_bracelet2.jpg"]},
+        {"id": 5, "name": "Leather Wrap", "price": 22.0, "images": ["leather_wrap.jpg", "leather_wrap1.jpg", "leather_wrap2.jpg"]},
+        {"id": 6, "name": "Diamond Tennis", "price": 120.0, "images": ["diamond_tennis.jpg", "diamond_tennis1.jpg", "diamond_tennis2.jpg"]},
+        {"id": 7, "name": "Friendship Bracelet", "price": 15.0, "images": ["friendship.jpg", "friendship1.jpg", "friendship2.jpg"]},
+        {"id": 8, "name": "Hero Bracelet", "price": 38.0, "images": ["hero_bracelet.jpg", "hero_bracelet1.jpg", "hero_bracelet2.jpg"]},
     ]
-
     for p in enhanced_products:
         st.subheader(f"{p['name']} - ${p['price']}")
         cols = st.columns(len(p["images"]))
@@ -237,7 +192,6 @@ elif choice == "Products" and st.session_state.logged_in:
             add_to_cart({"name": p["name"], "price": p["price"], "image": p["images"][0]})
             st.success(f"Added {p['name']} to cart!")
 
-# LOGIN
 elif choice == "Login":
     st.header("🔐 Login")
     username = st.text_input("Username")
@@ -249,11 +203,10 @@ elif choice == "Login":
             st.session_state.logged_in = True
             st.session_state.username = username
             st.success("Login successful!")
-            rerun()  # Fixed rerun here
+            rerun()
         else:
             st.error("Invalid username or password")
 
-# SIGN UP
 elif choice == "Sign Up":
     st.header("📝 Create Account")
     username = st.text_input("Choose Username")
@@ -280,14 +233,12 @@ elif choice == "Sign Up":
                 conn.commit()
                 st.success("Account created successfully! Please login.")
 
-# LOGOUT
 elif choice == "Logout":
     st.session_state.logged_in = False
     st.session_state.username = ""
     st.success("Logged out successfully.")
-    rerun()  # Fixed rerun here
+    rerun()
 
-# CART
 elif choice == "Cart" and st.session_state.logged_in:
     st.header("🛒 Your Cart")
     items = get_cart()
@@ -304,7 +255,6 @@ elif choice == "Cart" and st.session_state.logged_in:
     else:
         st.info("Your cart is empty.")
 
-# CHECKOUT
 elif choice == "Checkout" and st.session_state.logged_in:
     st.header("💳 Checkout")
     name = st.text_input("Full Name")
